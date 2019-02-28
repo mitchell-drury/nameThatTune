@@ -8,7 +8,7 @@ export default class Home extends Component {
     render () {
         return (
             <div id='music'>
-                <img src={'./music/' + this.props.image + '.png'}/>
+                <img src={'./music/' + this.props.image}/>
             </div>
         )
     }

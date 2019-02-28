@@ -4,7 +4,6 @@ const session = require('express-session');
 const passport = require('passport');
 const socketio = require('socket.io');
 const db = require('./db/dbsetup.js');
-const accountRouter = require('./routes/accountRouter');
 const apiRouter = require('./routes/apiRouter');
 const bodyParser = require('body-parser');
 const sequelizeStore = require('connect-session-sequelize')(session.Store)
@@ -38,7 +37,6 @@ passport.deserializeUser(function(user, done) {
 })
 
 app.use(express.static(path.join(__dirname, '..', '/public')))
-app.use('/account', accountRouter);
 app.use('/api', apiRouter);
 app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'))

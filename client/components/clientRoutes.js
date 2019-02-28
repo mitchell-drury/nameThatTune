@@ -13,31 +13,10 @@ socket.on('connect', () => {
 export default class ClientRoutes extends Component {
     constructor () {
         super ();
-
-        this.state = {
-            loggedIn: false,
-            authenticating: true
-        }
-
-        this.setLoggedInStatus = this.setLoggedInStatus.bind(this);
-    }
-
-    componentDidMount () {
-        Axios.post('/account/authenticate')
-        .then(response => {
-            this.setState({loggedIn: response.data.userLoggedIn, authenticating: false})
-        })
-
-        this.setLoggedInStatus = this.setLoggedInStatus.bind(this);
-    }
-
-    setLoggedInStatus (status) {
-        this.setState({loggedIn: status})
     }
 
     render () {
         return (
-            !this.state.authenticating &&
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/" render={() => <Home />}/>

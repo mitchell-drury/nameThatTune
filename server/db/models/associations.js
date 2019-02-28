@@ -1,5 +1,5 @@
-const User = require ('./user.js');
+const Music = require ('./music.js');
 
 //set associations here
 
-module.exports = {User};
+module.exports = {Music};

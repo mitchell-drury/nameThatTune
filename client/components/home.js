@@ -28,9 +28,9 @@ export default class Home extends Component {
         .then(response => {
             let reset = response.data[response.data.length-1];
             response.data.pop();
-            let currentMusic = this.selectRandomMusicAndSplice(reset, response.data);
+            // let currentMusic = this.selectRandomMusicAndSplice(reset, response.data);
             this.setState({
-                currentMusic: currentMusic
+                currentMusic: {title: 'something'}
             })
         })
     }
@@ -79,6 +79,7 @@ export default class Home extends Component {
     }
 
     selectRandomMusicAndSplice(reset, musicList) {
+        console.log('music list: ', musicList)
         if(reset) {
             localStorage.setItem('music', JSON.stringify(musicList));
             console.log('local reset: ', localStorage.getItem('music'));

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Home from './home.js';
 import io from 'socket.io-client';
-import Axios from 'Axios'
 
 const socket = io()
 

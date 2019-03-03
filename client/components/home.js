@@ -4,7 +4,7 @@ import Music from './music.js';
 import Axios from 'Axios';
 
 export default class Home extends Component {
-    constructor () {
+    constructor() {
         super ();
 
         this.state = {
@@ -13,23 +13,24 @@ export default class Home extends Component {
             playStatus: 'STOPPED',
             hintState: 'Hint',
             revealState: 'Reveal',
-            currentTune: {},
-            used: {},
+            currentMusic: {},
             music: []
         }
 
         this.handleHint = this.handleHint.bind(this);
         this.handleReveal = this.handleReveal.bind(this);
-        this.finishedpLaying = this.finishedpLaying.bind(this);
+        this.finishedPlaying = this.finishedPlaying.bind(this);
+        this.selectRandomMusicAndSplice = this.selectRandomMusicAndSplice.bind(this);
     }
 
-    componentWillMount () {
+    componentWillMount() {
         Axios.get('../../api/music')
         .then(response => {
-            let randomTune = response.data[Math.floor(Math.random()*response.data.length)]
+            let reset = response.data[response.data.length-1];
+            response.data.pop();
+            let currentMusic = this.selectRandomMusicAndSplice(reset, response.data);
             this.setState({
-                music: response.data,
-                currentTune: randomTune
+                currentMusic: currentMusic
             })
         })
     }
@@ -43,7 +44,7 @@ export default class Home extends Component {
                 <div id='artist'>
                 {this.state.displayArtist}
                 </div>
-                <Music image={this.state.currentTune.fileName}/>
+                <Music image={this.state.currentMusic.fileName}/>
                 <div id='controls'>
                     <div id='hint' className='control' onClick={this.handleHint}>
                         {this.state.hintState}
@@ -52,14 +53,14 @@ export default class Home extends Component {
                         {this.state.revealState}
                     </div>
                 </div>
-                <Sound url={'./audio/' +  this.state.currentTune.title + '.mp3'} playStatus={this.state.playStatus} onFinishedPlaying={this.finishedpLaying} loop={false}/>
+                <Sound url={'./audio/' +  this.state.currentMusic.title + '.mp3'} playStatus={this.state.playStatus} onFinishedPlaying={this.finishedPlaying} loop={false}/>
             </div>
         )
     }
 
     handleHint() {
         if (this.state.hintState === 'Hint') {
-            this.setState({hintState: 'Play', displayArtist: this.state.currentTune.artist})
+            this.setState({hintState: 'Play', displayArtist: this.state.currentMusic.artist})
         } else if (this.state.hintState === 'Play') {
             this.setState({playStatus: 'PLAYING', hintState: '(Playing)'})
         }
@@ -67,14 +68,36 @@ export default class Home extends Component {
 
     handleReveal() {
         if (this.state.revealState === 'Reveal') {
-            this.setState({title: this.state.currentTune.title, displayArtist: this.state.currentTune.artist, revealState: 'Next Tune ->'})
+            this.setState({title: this.state.currentMusic.title, displayArtist: this.state.currentMusic.artist, hintState: 'Play', revealState: 'Next Tune ->'})
         } else if (this.state.revealState === 'Next Tune ->') {
-            let randomTune = Math.floor(Math.random()*this.state.music.length);
-            this.setState({title: 'Name That Tune', displayArtist: 'Artist/Composer: ?', hintState: 'Hint', revealState: 'Reveal', playStatus: 'STOPPED', currentTune: this.state.music[randomTune]})
+            this.setState({title: 'Name That Tune', displayArtist: 'Artist/Composer: ?', hintState: 'Hint', revealState: 'Reveal', playStatus: 'STOPPED', currentMusic: this.selectRandomMusicAndSplice()})
         }
     }
 
-    finishedpLaying() {
+    finishedPlaying() {
         this.setState({hintState: 'Play', playStatus: 'STOPPED'});
+    }
+
+    selectRandomMusicAndSplice(reset, musicList) {
+        if(reset) {
+            localStorage.setItem('music', JSON.stringify(musicList));
+            console.log('local reset: ', localStorage.getItem('music'));
+        };
+        let localMusicArray = JSON.parse(localStorage.getItem('music'));
+        console.log('pre splice: ', localMusicArray)
+        let randomMusicIndex = Math.floor(Math.random()*localMusicArray.length);
+        console.log('random: ', randomMusicIndex);
+        let randomMusic = localMusicArray.splice(randomMusicIndex, 1);
+        console.log('music object: ', randomMusic);
+        console.log('post splice: ', localMusicArray)
+        localStorage.setItem('music', JSON.stringify(localMusicArray));
+        if (localMusicArray.length === 0) {
+            Axios.get('../../api/music')
+            .then(response => {
+                response.data.pop();
+                localStorage.setItem('music', JSON.stringify(response.data))
+            })
+        }
+        return randomMusic[0];       
     }
 }

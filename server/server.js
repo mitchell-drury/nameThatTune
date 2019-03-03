@@ -16,10 +16,11 @@ app.use(bodyParser.json())
 
 var sessionMware = session({
     secret: 'somereallylong(*DHF$^!@?asdf;,F6^',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
+    rolling: false,
     cookie: {
-        maxAge: 1000*60*60*24
+        maxAge: 1000*60*60*24*7
     },
     store: new sequelizeStore({
         db: db

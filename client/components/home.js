@@ -47,7 +47,7 @@ export default class Home extends Component {
                 <div id='artist'>
                 {this.state.displayArtist}
                 </div>
-                <Music image={this.state.currentMusic.fileName}/>
+                <Music image={this.state.currentMusic.title + '.png'}/>
                 <div id='controls'>
                     <div id='hint' className='control' onClick={this.handleHint}>
                         {this.state.hintState}
@@ -108,7 +108,6 @@ export default class Home extends Component {
     selectRandomMusic() {
         let randomIndex = Math.floor(Math.random()*this.state.musicList.length);
         let song = this.state.musicList[randomIndex];
-        console.log(randomIndex, song);
         return song;
     }
 }

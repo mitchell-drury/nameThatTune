@@ -43,7 +43,7 @@ app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'))
 })
 
-db.sync({force:false});
+db.sync({force:true});
 const server = app.listen(port, () => console.log('Server Running'));
 
 const io = socketio(server);

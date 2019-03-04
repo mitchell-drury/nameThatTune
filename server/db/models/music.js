@@ -2,20 +2,12 @@ const Sequelize = require('sequelize')
 const db = require('../dbconnection.js');
 
 const Music = db.define('music', {
-  fileName: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  soundFile: {
-    type: Sequelize.STRING
-  },
   title: {
     type: Sequelize.STRING,
     allowNull: false
   },
   artist: {
-    type: Sequelize.STRING,
-    allowNull: false 
+    type: Sequelize.STRING
   },
   difficulty: {
     type: Sequelize.FLOAT,

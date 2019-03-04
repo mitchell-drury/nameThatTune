@@ -6265,7 +6265,7 @@ var Home = function (_Component) {
                     { id: 'artist' },
                     this.state.displayArtist
                 ),
-                _react2.default.createElement(_music2.default, { image: this.state.currentMusic.fileName }),
+                _react2.default.createElement(_music2.default, { image: this.state.currentMusic.title + '.png' }),
                 _react2.default.createElement(
                     'div',
                     { id: 'controls' },
@@ -6335,7 +6335,6 @@ var Home = function (_Component) {
         value: function selectRandomMusic() {
             var randomIndex = Math.floor(Math.random() * this.state.musicList.length);
             var song = this.state.musicList[randomIndex];
-            console.log(randomIndex, song);
             return song;
         }
     }]);

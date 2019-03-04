@@ -12,6 +12,14 @@ const Music = db.define('music', {
   difficulty: {
     type: Sequelize.FLOAT,
     defaultValue: 5
+  },
+  createdAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.now
+  },
+  updatedAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.now
   }
 })
 

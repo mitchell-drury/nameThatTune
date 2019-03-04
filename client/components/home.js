@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Sound from 'react-sound';
 import Music from './music.js';
-import Axios from 'Axios';
+import Axios from 'axios';
 
 export default class Home extends Component {
     constructor() {

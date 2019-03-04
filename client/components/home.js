@@ -21,6 +21,7 @@ export default class Home extends Component {
         this.handleReveal = this.handleReveal.bind(this);
         this.finishedPlaying = this.finishedPlaying.bind(this);
         this.selectRandomMusicAndSplice = this.selectRandomMusicAndSplice.bind(this);
+        this.selectRandomMusic = this.selectRandomMusic.bind(this);
     }
 
     componentWillMount() {
@@ -28,9 +29,11 @@ export default class Home extends Component {
         .then(response => {
             let reset = response.data[response.data.length-1];
             response.data.pop();
-            // let currentMusic = this.selectRandomMusicAndSplice(reset, response.data);
+            let randomIndex = Math.floor(Math.random(response.data.length));
+            let currentMusic = response.data[randomIndex];
             this.setState({
-                currentMusic: {title: 'something'}
+                currentMusic: currentMusic,
+                musicList: response.data
             })
         })
     }
@@ -70,7 +73,7 @@ export default class Home extends Component {
         if (this.state.revealState === 'Reveal') {
             this.setState({title: this.state.currentMusic.title, displayArtist: this.state.currentMusic.artist, hintState: 'Play', revealState: 'Next Tune ->'})
         } else if (this.state.revealState === 'Next Tune ->') {
-            this.setState({title: 'Name That Tune', displayArtist: 'Artist/Composer: ?', hintState: 'Hint', revealState: 'Reveal', playStatus: 'STOPPED', currentMusic: this.selectRandomMusicAndSplice()})
+            this.setState({title: 'Name That Tune', displayArtist: 'Artist/Composer: ?', hintState: 'Hint', revealState: 'Reveal', playStatus: 'STOPPED', currentMusic: this.selectRandomMusic()})
         }
     }
 
@@ -100,5 +103,12 @@ export default class Home extends Component {
             })
         }
         return randomMusic[0];       
+    }
+
+    selectRandomMusic() {
+        let randomIndex = Math.floor(Math.random()*this.state.musicList.length);
+        let song = this.state.musicList[randomIndex];
+        console.log(randomIndex, song);
+        return song;
     }
 }

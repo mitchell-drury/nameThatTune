@@ -19,6 +19,7 @@ export default class ClientRoutes extends Component {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/" render={() => <Home />}/>
+                    <Route exact path="/addSongs" render={() => <databaseEntry />}/>
                 </Switch>
             </BrowserRouter> 
         )

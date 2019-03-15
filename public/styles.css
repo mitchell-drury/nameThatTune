@@ -40,11 +40,10 @@ body{
     width: 40%;
     text-align:center;
     font-size: 2em;
-    background-color: white;
     border-radius: 3px;
 }
 
-.control:hover{
+.controlHover{
     cursor:pointer;
     background-color:#d4d4d4;
 }

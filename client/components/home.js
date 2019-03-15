@@ -22,6 +22,17 @@ export default class Home extends Component {
         this.finishedPlaying = this.finishedPlaying.bind(this);
         this.selectRandomMusicAndSplice = this.selectRandomMusicAndSplice.bind(this);
         this.selectRandomMusic = this.selectRandomMusic.bind(this);
+        this.pointerEnter = this.pointerEnter.bind(this);
+        this.pointerLeave = this.pointerLeave.bind(this);
+    }
+
+
+    pointerEnter(event) {
+        event.target.className = 'control controlHover';
+    }
+
+    pointerLeave(event) {
+        event.target.className = 'control';
     }
 
     componentWillMount() {
@@ -49,10 +60,10 @@ export default class Home extends Component {
                 </div>
                 <Music image={this.state.currentMusic.title + '.png'}/>
                 <div id='controls'>
-                    <div id='hint' className='control' onClick={this.handleHint}>
+                    <div id='hint' className='control' onClick={this.handleHint} onMouseEnter={this.pointerEnter} onMouseLeave={this.pointerLeave}>
                         {this.state.hintState}
                     </div>
-                    <div id='reveal' className='control' onClick={this.handleReveal}>
+                    <div id='reveal' className='control' onClick={this.handleReveal} onMouseEnter={this.pointerEnter} onMouseLeave={this.pointerLeave}>
                         {this.state.revealState}
                     </div>
                 </div>
@@ -71,7 +82,7 @@ export default class Home extends Component {
 
     handleReveal() {
         if (this.state.revealState === 'Reveal') {
-            this.setState({title: this.state.currentMusic.title, displayArtist: this.state.currentMusic.artist, hintState: 'Play', revealState: 'Next Tune ->'})
+            this.setState({title: this.state.currentMusic.title, displayArtist: this.state.currentMusic.artist, hintState: 'Play', revealState: 'Next Tune'})
         } else if (this.state.revealState === 'Next Tune ->') {
             this.setState({title: 'Name That Tune', displayArtist: 'Artist/Composer: ?', hintState: 'Hint', revealState: 'Reveal', playStatus: 'STOPPED', currentMusic: this.selectRandomMusic()})
         }

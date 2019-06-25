@@ -26,7 +26,6 @@ export default class Home extends Component {
         this.pointerLeave = this.pointerLeave.bind(this);
     }
 
-
     pointerEnter(event) {
         event.target.className = 'control controlHover';
     }
@@ -60,7 +59,7 @@ export default class Home extends Component {
                 </div>
                 <Music image={this.state.currentMusic.title + '.png'}/>
                 <div id='controls'>
-                    <div id='hint' className='control' onClick={this.handleHint} onMouseEnter={this.pointerEnter} onMouseLeave={this.pointerLeave}>
+                    <div id='hint' className='control' onClick={this.handleHint} onMouseEnter={this.pointerEnter} onMouseUp={this.pointerLeave}>
                         {this.state.hintState}
                     </div>
                     <div id='reveal' className='control' onClick={this.handleReveal} onMouseEnter={this.pointerEnter} onMouseLeave={this.pointerLeave}>

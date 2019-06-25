@@ -13,7 +13,7 @@ export default class Home extends Component {
             playStatus: 'STOPPED',
             hintState: 'Hint',
             revealState: 'Reveal',
-            currentMusic: {},
+            currentMusic: {title: 'Loading'},
             music: []
         }
 
@@ -57,7 +57,7 @@ export default class Home extends Component {
                 <div id='artist'>
                 {this.state.displayArtist}
                 </div>
-                <Music image={this.state.currentMusic.title + '.png'}/>
+                <Music image={this.state.currentMusic.title.replace(' ', '+') + '.png'}/>
                 <div id='controls'>
                     <div id='hint' className='control' onClick={this.handleHint} onMouseEnter={this.pointerEnter} onMouseUp={this.pointerLeave}>
                         {this.state.hintState}

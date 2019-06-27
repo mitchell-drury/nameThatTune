@@ -83,7 +83,7 @@ export default class Home extends Component {
     handleReveal() {
         if (this.state.revealState === 'Reveal') {
             this.setState({title: this.state.currentMusic.title, displayArtist: this.state.currentMusic.artist, hintState: 'Play', revealState: 'Next Tune'})
-        } else if (this.state.revealState === 'Next Tune ->') {
+        } else if (this.state.revealState === 'Next Tune') {
             this.setState({title: 'Name That Tune', displayArtist: 'Artist/Composer: ?', hintState: 'Hint', revealState: 'Reveal', playStatus: 'STOPPED', currentMusic: this.selectRandomMusic()})
         }
     }

@@ -77,6 +77,7 @@ export default class Home extends Component {
         } else if (this.state.hintState === 'Play') {
             this.setState({playStatus: 'PLAYING', hintState: '(Playing)'})
         }
+        console.log(this.state.musicList)
     }
 
     handleReveal() {

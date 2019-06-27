@@ -57,7 +57,7 @@ export default class Home extends Component {
                 <div id='artist'>
                 {this.state.displayArtist}
                 </div>
-                <Music image={this.state.currentMusic.title.replace(' ', '+') + '.png'}/>
+                <Music image={this.state.currentMusic.title + '.png'}/>
                 <div id='controls'>
                     <div id='hint' className='control' onClick={this.handleHint} onMouseEnter={this.pointerEnter} onMouseUp={this.pointerLeave}>
                         {this.state.hintState}
@@ -66,7 +66,7 @@ export default class Home extends Component {
                         {this.state.revealState}
                     </div>
                 </div>
-                <Sound url={'./audio/' +  this.state.currentMusic.title + '.mp3'} playStatus={this.state.playStatus} onFinishedPlaying={this.finishedPlaying} loop={false}/>
+                <Sound url={'https://readthatmusic.s3-us-west-2.amazonaws.com/audio/' +  this.state.currentMusic.title + '.mp3'} playStatus={this.state.playStatus} onFinishedPlaying={this.finishedPlaying} loop={false}/>
             </div>
         )
     }

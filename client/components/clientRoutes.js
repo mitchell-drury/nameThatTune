@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Home from './home.js';
-import DatabaseEntry from './databaseEntry.js'
+import Login from './login.js';
+import AddSongs from './addSongs.js';
 import io from 'socket.io-client';
 
 const socket = io()
@@ -20,7 +21,8 @@ export default class ClientRoutes extends Component {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/" render={() => <Home />}/>
-                    <Route exact path="/addSongs" render={() => <DatabaseEntry />}/>
+                    <Route exact path="/login" render={() => <Login/>}/>
+                    <Route exact path="/addSongs" render={() => <AddSongs/>}/>
                 </Switch>
             </BrowserRouter> 
         )

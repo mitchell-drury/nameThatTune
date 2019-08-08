@@ -1,7 +1,8 @@
 const Music = require ('./music.js');
-const Category = require ('./category.js');
-const MusicCategories = require ('./musicCategories.js')
+const Keyword = require ('./keyword.js');
 
 //set associations here
+Music.belongsToMany(Keyword, {through: 'MusicKeyword'});
+Keyword.belongsToMany(Music, {through: 'MusicKeyword'});
 
-module.exports = {Music, Category, MusicCategories};
+module.exports = {Music, Keyword};

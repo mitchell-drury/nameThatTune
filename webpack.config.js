@@ -13,6 +13,18 @@ module.exports = {
             query: {
               presets: ['react', 'env', 'stage-2']
             }
+          },
+          {
+            test: /\.css$/,
+            loader: 'style-loader'
+          },
+          {
+            test: /\.css$/,
+            loader: 'css-loader',
+            query: {
+              modules: true,
+              localIdentName: '[name]_[local]_{hash:base64:5]'
+            }
           }
         ]
     }

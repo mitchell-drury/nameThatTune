@@ -1,10 +1,12 @@
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
-const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const key = require('../secrets.js')
 const socketio = require('socket.io');
 const db = require('./db/dbsetup.js');
 const apiRouter = require('./routes/apiRouter');
+const accountRouter = require('./routes/accountRouter');
 const bodyParser = require('body-parser');
 const sequelizeStore = require('connect-session-sequelize')(session.Store)
 
@@ -28,17 +30,20 @@ var sessionMware = session({
 })
 app.use(sessionMware);
 
-app.use(passport.initialize());
-app.use(passport.session());
-passport.serializeUser(function(user, done) {
-    done(null, user);
-})
-passport.deserializeUser(function(user, done) {
-    done(null, user);
+app.use(function(req, res, next) {
+    let authHeader = req.headers.authorization;
+    if (authHeader) {
+        let token = authHeader.split(" ")[1];
+        jwt.verify(token, key.tokenKey, function(err, payload){
+            
+        })
+    }
+    next();
 })
 
 app.use(express.static(path.join(__dirname, '..', '/public')))
 app.use('/api', apiRouter);
+app.use('/account', accountRouter);
 app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'))
 })
